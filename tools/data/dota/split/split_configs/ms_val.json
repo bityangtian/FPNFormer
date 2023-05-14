@@ -1,10 +1,10 @@
 {
   "nproc": 10,
   "img_dirs": [
-    "data/DOTA/val/images/"
+    "/media/data/DOTAv1.0/val/images/"
   ],
   "ann_dirs": [
-    "data/DOTA/val/labelTxt/"
+    "/media/data/DOTAv1.0/val/labelTxt/"
   ],
   "sizes": [
     1024
@@ -25,6 +25,6 @@
     116,
     124
   ],
-  "save_dir": "data/split_ms_dota/val/",
+  "save_dir": "/media/data/split_ms_dota/val/",
   "save_ext": ".png"
 }

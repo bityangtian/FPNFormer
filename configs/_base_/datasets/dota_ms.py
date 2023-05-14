@@ -1,6 +1,6 @@
 # dataset settings
 dataset_type = 'DOTADataset'
-data_root = 'data/split_ms_dota/'
+data_root = '/home/guoshibo/mmrotate/tools/data/split_ms_dota/'
 backend_args = None
 
 train_pipeline = [
@@ -47,8 +47,8 @@ train_dataloader = dict(
     dataset=dict(
         type=dataset_type,
         data_root=data_root,
-        ann_file='trainval/annfiles/',
-        data_prefix=dict(img_path='trainval/images/'),
+        ann_file='train/annfiles/',
+        data_prefix=dict(img_path='train/images/'),
         filter_cfg=dict(filter_empty_gt=True),
         pipeline=train_pipeline))
 val_dataloader = dict(
@@ -60,8 +60,8 @@ val_dataloader = dict(
     dataset=dict(
         type=dataset_type,
         data_root=data_root,
-        ann_file='trainval/annfiles/',
-        data_prefix=dict(img_path='trainval/images/'),
+        ann_file='val/annfiles/',
+        data_prefix=dict(img_path='val/images/'),
         test_mode=True,
         pipeline=val_pipeline))
 test_dataloader = val_dataloader
