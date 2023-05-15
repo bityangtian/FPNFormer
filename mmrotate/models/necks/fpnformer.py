@@ -15,7 +15,7 @@ from typing import Optional
 import torch
 from .posembedding import PositionEmbeddingSine
 from .mask import create_mask
-
+from .window_att import Swin
 
 
 
@@ -139,6 +139,7 @@ class Fpndecoder(nn.Module):
     def __init__(self, query_pos, kv_pos, mask):
         super(Fpndecoder, self).__init__()
         #self.selfattention =
+        #self.selfatt = Swin([7,7])
         self.query_pos = query_pos
         self.kv_pos = kv_pos
         self.mask = mask
@@ -146,6 +147,7 @@ class Fpndecoder(nn.Module):
         self.ffn = FFNLayer(d_model=256)
         
     def forward(self, q, kv):
+        #q = self.selfatt(q)
         b, n, h, w = q.shape
         q = q.flatten(2).transpose(1, 2)
         kv = kv.flatten(2).transpose(1, 2)
@@ -160,11 +162,10 @@ pos = PositionEmbeddingSine()
 pos_c3 = pos(c3).flatten(2).transpose(1, 2).to('cuda')
 pos_c4 = pos(c4).flatten(2).transpose(1, 2).to('cuda')
 pos_c5 = pos(c5).flatten(2).transpose(1, 2).to('cuda')
-mask_c5_c4 = create_mask(c5, c4, query_size=7).to('cuda')
-mask_c5_c3 = create_mask(c5, c3, query_size=7).to('cuda')
-mask_c4_c5 = create_mask(c4, c5, query_size=3).to('cuda')
-mask_c3_c5 = create_mask(c3, c5, query_size=3).to('cuda')
-
+mask_c5_c4 = create_mask(c5, c4, query_size=9).to('cuda')
+mask_c5_c3 = create_mask(c5, c3, query_size=9).to('cuda')
+mask_c4_c5 = create_mask(c4, c5, query_size=7).to('cuda')
+mask_c3_c5 = create_mask(c3, c5, query_size=7).to('cuda')
 
 
 
@@ -320,10 +321,10 @@ class FPNdecoderformer(BaseModule):
                     inplace=False)
                 self.fpn_convs.append(extra_fpn_conv)
 
-        self.decoder_c5_c4 = Fpndecoder(query_pos=pos_c5, kv_pos=pos_c4, mask=mask_c5_c4)
-        self.decoder_c5_c3 = Fpndecoder(query_pos=pos_c5, kv_pos=pos_c3, mask=mask_c5_c3)
-        self.decoder_c4_c5 = Fpndecoder(query_pos=pos_c4, kv_pos=pos_c5, mask=mask_c4_c5)
-        self.decoder_c3_c5 = Fpndecoder(query_pos=pos_c3, kv_pos=pos_c5, mask=mask_c3_c5)
+        self.decoder_c5_c4 = Fpndecoder(query_pos=pos_c5, kv_pos=pos_c4, mask=None)
+        self.decoder_c5_c3 = Fpndecoder(query_pos=pos_c5, kv_pos=pos_c3, mask=None)
+        self.decoder_c4_c5 = Fpndecoder(query_pos=pos_c4, kv_pos=pos_c5, mask=None)
+        self.decoder_c3_c5 = Fpndecoder(query_pos=pos_c3, kv_pos=pos_c5, mask=None)
 
     def forward(self, inputs: Tuple[Tensor]) -> tuple:
         """Forward function.

@@ -3,7 +3,7 @@ from torchvision.models.swin_transformer import SwinTransformerBlock
 
 class Swin(nn.Module):
     def __init__(self, window_size):
-        super(self, Swin).__init__()
+        super(Swin, self).__init__()
         self.encoder = SwinTransformerBlock(dim=256, num_heads=8, window_size=window_size, shift_size=[0,0])
         
     def forward(self, x):
