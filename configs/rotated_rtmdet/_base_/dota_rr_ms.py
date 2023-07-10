@@ -1,6 +1,6 @@
 # dataset settings
 dataset_type = 'DOTADataset'
-data_root = 'data/split_ms_dota/'
+data_root = '/media/data/split_ms_dota/'
 backend_args = None
 
 train_pipeline = [
@@ -81,20 +81,20 @@ test_evaluator = val_evaluator
 
 # inference on test dataset and format the output results
 # for submission. Note: the test set has no annotation.
-# test_dataloader = dict(
-#     batch_size=8,
-#     num_workers=8,
-#     persistent_workers=False,
-#     drop_last=False,
-#     sampler=dict(type='DefaultSampler', shuffle=False),
-#     dataset=dict(
-#         type=dataset_type,
-#         data_root=data_root,
-#         data_prefix=dict(img_path='test/images/'),
-#         test_mode=True,
-#         pipeline=test_pipeline))
-# test_evaluator = dict(
-#     type='DOTAMetric',
-#     format_only=True,
-#     merge_patches=True,
-#     outfile_prefix='./work_dirs/rtmdet_r/Task1')
+test_dataloader = dict(
+    batch_size=8,
+    num_workers=8,
+    persistent_workers=False,
+    drop_last=False,
+    sampler=dict(type='DefaultSampler', shuffle=False),
+    dataset=dict(
+        type=dataset_type,
+        data_root=data_root,
+        data_prefix=dict(img_path='test/images/'),
+        test_mode=True,
+        pipeline=test_pipeline))
+test_evaluator = dict(
+    type='DOTAMetric',
+    format_only=True,
+    merge_patches=True,
+    outfile_prefix='./work_dirs/rtmdet_r/Task1')

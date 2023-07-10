@@ -25,6 +25,6 @@
     116,
     124
   ],
-  "save_dir": "/media/data/split_ms_dota/train/",
+  "save_dir": "/media/data/split_ms_dota_val/train/",
   "save_ext": ".png"
 }

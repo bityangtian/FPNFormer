@@ -1,7 +1,7 @@
 {
   "nproc": 10,
   "img_dirs": [
-    "data/DOTA/test/images/"
+    "/media/data/DOTAv1.0/test/images/"
   ],
   "ann_dirs": null,
   "sizes": [
@@ -21,6 +21,6 @@
     116,
     124
   ],
-  "save_dir": "data/split_ss_dota/test/",
+  "save_dir": "/media/data/split_ss_dota/test/",
   "save_ext": ".png"
 }

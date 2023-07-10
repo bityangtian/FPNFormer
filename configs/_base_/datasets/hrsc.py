@@ -1,6 +1,6 @@
 # dataset settings
 dataset_type = 'HRSCDataset'
-data_root = 'data/hrsc/'
+data_root = '/home/guoshibo/mmrotate/tools/data/hrsc/HRSC2016/'
 backend_args = None
 
 train_pipeline = [

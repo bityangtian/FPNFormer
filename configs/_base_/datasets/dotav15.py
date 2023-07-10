@@ -1,6 +1,6 @@
 # dataset settings
 dataset_type = 'DOTAv15Dataset'
-data_root = 'data/split_ss_dota1_5/'
+data_root = '/home/guoshibo/mmrotate/tools/data/split_ms_dota15'
 backend_args = None
 
 train_pipeline = [
@@ -12,6 +12,11 @@ train_pipeline = [
         type='mmdet.RandomFlip',
         prob=0.75,
         direction=['horizontal', 'vertical', 'diagonal']),
+    dict(
+        type='RandomRotate',
+        prob=0.5,
+        angle_range=180,
+        rect_obj_labels=[9, 11]),
     dict(type='mmdet.PackDetInputs')
 ]
 val_pipeline = [
@@ -66,20 +71,20 @@ test_evaluator = val_evaluator
 
 # inference on test dataset and format the output results
 # for submission. Note: the test set has no annotation.
-# test_dataloader = dict(
-#     batch_size=1,
-#     num_workers=2,
-#     persistent_workers=True,
-#     drop_last=False,
-#     sampler=dict(type='DefaultSampler', shuffle=False),
-#     dataset=dict(
-#         type=dataset_type,
-#         data_root=data_root,
-#         data_prefix=dict(img_path='test/images/'),
-#         test_mode=True,
-#         pipeline=test_pipeline))
-# test_evaluator = dict(
-#     type='DOTAMetric',
-#     format_only=True,
-#     merge_patches=True,
-#     outfile_prefix='./work_dirs/dotav15/h2rbox-le90_r50_fpn_adamw-1x_dotav15/Task1')
+test_dataloader = dict(
+    batch_size=1,
+    num_workers=2,
+    persistent_workers=True,
+    drop_last=False,
+    sampler=dict(type='DefaultSampler', shuffle=False),
+    dataset=dict(
+        type=dataset_type,
+        data_root=data_root,
+        data_prefix=dict(img_path='test/images/'),
+        test_mode=True,
+        pipeline=test_pipeline))
+test_evaluator = dict(
+    type='DOTAMetric',
+    format_only=True,
+    merge_patches=True,
+    outfile_prefix='./work_dirs/dotav15/Task1')

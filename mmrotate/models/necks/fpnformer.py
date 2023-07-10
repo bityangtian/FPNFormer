@@ -138,8 +138,7 @@ def _get_activation_fn(activation):
 class Fpndecoder(nn.Module):
     def __init__(self, query_pos, kv_pos, mask):
         super(Fpndecoder, self).__init__()
-        #self.selfattention =
-        #self.selfatt = Swin([7,7])
+        self.selfatt = Swin([7,7])
         self.query_pos = query_pos
         self.kv_pos = kv_pos
         self.mask = mask
@@ -147,7 +146,7 @@ class Fpndecoder(nn.Module):
         self.ffn = FFNLayer(d_model=256)
         
     def forward(self, q, kv):
-        #q = self.selfatt(q)
+        q = self.selfatt(q)
         b, n, h, w = q.shape
         q = q.flatten(2).transpose(1, 2)
         kv = kv.flatten(2).transpose(1, 2)

@@ -48,3 +48,12 @@ class PositionEmbeddingSine(nn.Module):
         ).flatten(3)
         pos = torch.cat((pos_y, pos_x), dim=3).permute(0, 3, 1, 2)
         return pos
+if __name__ == '__main__':
+    c3 = torch.rand(1, 256, 128, 128)
+    c4 = torch.rand(1, 256, 64, 64)
+    c5 = torch.rand(1, 256, 32, 32)
+    pos = PositionEmbeddingSine()
+    pos_c3 = pos(c3).flatten(2).transpose(1, 2).to('cuda')
+    pos_c4 = pos(c4).flatten(2).transpose(1, 2).to('cuda')
+    pos_c5 = pos(c5).flatten(2).transpose(1, 2).to('cuda')
+    print(pos_c3.shape)

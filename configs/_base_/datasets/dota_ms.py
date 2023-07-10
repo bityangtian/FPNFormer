@@ -47,8 +47,8 @@ train_dataloader = dict(
     dataset=dict(
         type=dataset_type,
         data_root=data_root,
-        ann_file='train/annfiles/',
-        data_prefix=dict(img_path='train/images/'),
+        ann_file='trainval/annfiles/',
+        data_prefix=dict(img_path='trainval/images/'),
         filter_cfg=dict(filter_empty_gt=True),
         pipeline=train_pipeline))
 val_dataloader = dict(
@@ -60,8 +60,8 @@ val_dataloader = dict(
     dataset=dict(
         type=dataset_type,
         data_root=data_root,
-        ann_file='val/annfiles/',
-        data_prefix=dict(img_path='val/images/'),
+        ann_file='trainval/annfiles/',
+        data_prefix=dict(img_path='trainval/images/'),
         test_mode=True,
         pipeline=val_pipeline))
 test_dataloader = val_dataloader
@@ -71,20 +71,20 @@ test_evaluator = val_evaluator
 
 # inference on test dataset and format the output results
 # for submission. Note: the test set has no annotation.
-# test_dataloader = dict(
-#     batch_size=1,
-#     num_workers=2,
-#     persistent_workers=True,
-#     drop_last=False,
-#     sampler=dict(type='DefaultSampler', shuffle=False),
-#     dataset=dict(
-#         type=dataset_type,
-#         data_root=data_root,
-#         data_prefix=dict(img_path='test/images/'),
-#         test_mode=True,
-#         pipeline=test_pipeline))
-# test_evaluator = dict(
-#     type='DOTAMetric',
-#     format_only=True,
-#     merge_patches=True,
-#     outfile_prefix='./work_dirs/dota/Task1')
+test_dataloader = dict(
+    batch_size=1,
+    num_workers=2,
+    persistent_workers=True,
+    drop_last=False,
+    sampler=dict(type='DefaultSampler', shuffle=False),
+    dataset=dict(
+        type=dataset_type,
+        data_root=data_root,
+        data_prefix=dict(img_path='test/images/'),
+        test_mode=True,
+        pipeline=test_pipeline))
+test_evaluator = dict(
+    type='DOTAMetric',
+    format_only=True,
+    merge_patches=True,
+    outfile_prefix='./work_dirs/dota/Task1')

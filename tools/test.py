@@ -32,7 +32,7 @@ def parse_args():
         'If specified, it will be automatically saved '
         'to the work_dir/timestamp/show_dir')
     parser.add_argument(
-        '--wait-time', type=float, default=2, help='the interval of show (s)')
+        '--wait-time', type=float, default=3, help='the interval of show (s)')
     parser.add_argument(
         '--cfg-options',
         nargs='+',
